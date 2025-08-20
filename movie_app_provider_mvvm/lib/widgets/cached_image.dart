@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app_provider_mvvm/constants/app_colors.dart';
+import 'package:movie_app_provider_mvvm/constants/app_constants.dart';
 import 'package:movie_app_provider_mvvm/constants/app_icons.dart';
 
 class CachedImageWidget extends StatelessWidget {
@@ -12,18 +13,19 @@ class CachedImageWidget extends StatelessWidget {
   });
   final double? height;
   final double? width;
-  final String imageUrl;
+  final String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return SizedBox(
-      height: height ?? screenSize.height * 0.3,
+      height: height ?? screenSize.width * 0.3,
       width: width ?? screenSize.width * 0.2,
       child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
         child: CachedNetworkImage(
           fit: BoxFit.cover,
-          imageUrl: imageUrl,
+          imageUrl: imageUrl ?? AppConstants.imageUrl,
           placeholder: (context, url) => Container(color: Colors.grey),
           errorWidget: (context, url, error) =>
               Container(color: AppColors.kRed, child: Icon(AppIcons.error)),
